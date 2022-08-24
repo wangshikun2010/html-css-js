@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript页面滚动时导航智能定位</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .container {
+            height: 100%;
+            background-color: #fff;
+        }
+
+        .wrapper {
+            margin-right: 300px;
+        }
+
+        .wrapper .section {
+            height: 400px;
+            line-height: 400px;
+            text-align: center;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .wrapper .section:nth-child(1) {
+            background: #52c41a;
+        }
+
+        .wrapper .section:nth-child(2) {
+            background: #12c19e;
+        }
+
+        .wrapper .section:nth-child(3) {
+            background: #096dd9;
+        }
+
+        .wrapper .section:nth-child(4) {
+            background: #13c2c2;
+        }
+
+        .wrapper .section:nth-child(5) {
+            background: #ff7875;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 300px;
+            padding: 60px 0;
+            background: rgb(244, 246, 248);
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        nav a {
+            display: block;
+            margin: 10px 0;
+            color: #333;
+            text-decoration: none;
+        }
+
+        nav .current {
+            color: #13c2c2;
+            font-weight: bold;
+        }
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var $navs = $('nav a'),                    // 导航
+                $sections = $('.section'),             // 模块
+                $window = $(window),
+                navLength = $navs.length - 1;
+
+            $window.on('scroll', function () {
+                var scrollTop = $window.scrollTop(),
+                    len = navLength;
+
+                for (; len > -1; len--) {
+                    var that = $sections.eq(len);
+                    if (scrollTop >= that.offset().top) {
+                        $navs.removeClass('current').eq(len).addClass('current');
+                        break;
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="section" id="section1">section1</div>
+            <div class="section" id="section2">section2</div>
+            <div class="section" id="section3">section3</div>
+            <div class="section" id="section4">section4</div>
+            <div class="section" id="section5">section5</div>
+        </div>
+        <nav>
+            <a href="#section1" class="current">section1</a>
+            <a href="#section2">section2</a>
+            <a href="#section3">section3</a>
+            <a href="#section4">section4</a>
+            <a href="#section5">section5</a>
+        </nav>
+    </div>
+</body>
+
+</html>
